@@ -19,6 +19,7 @@
       --text-sub: #a0aec0;
       --ua-gold: #ffcc00;
       --ua-blue: #2b6cb0;
+      --tech-cyan: #00d2ff;
     }
 
     * { 
@@ -45,7 +46,15 @@
       background: #090c10; 
       padding: 15px 20px; 
       border-bottom: 3px solid var(--ua-gold); 
-      text-align: center; 
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-content {
+      text-align: center;
     }
 
     .header h1 {
@@ -59,6 +68,51 @@
       font-style: italic;
     }
 
+    /* TOP-RIGHT HEADER SEARCH BAR */
+    .header-search-container {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      background: rgba(10, 25, 47, 0.85);
+      border: 1px solid rgba(0, 210, 255, 0.4);
+      border-radius: 20px;
+      padding: 4px 12px;
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+      transition: all 0.25s ease;
+    }
+
+    .header-search-container:focus-within {
+      border-color: var(--tech-cyan);
+      box-shadow: 0 0 12px rgba(0, 210, 255, 0.6), inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-search-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.85rem;
+      padding: 4px 8px;
+      width: 160px;
+    }
+
+    .header-search-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .header-search-container {
+        position: static;
+        transform: none;
+        margin-top: 10px;
+      }
+    }
+
     .nav-tabs {
       display: flex;
       justify-content: center;
@@ -66,6 +120,7 @@
       background: #141a24;
       padding: 10px;
       border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
     }
 
     .tab-btn, button, .nav-link {
@@ -82,11 +137,14 @@
     .tab-btn:hover, button:hover {
       transform: scale(1.03);
       color: var(--text-main);
+      border-color: var(--tech-cyan) !important;
+      box-shadow: 0 0 12px rgba(0, 210, 255, 0.4);
     }
 
     .tab-btn.active { 
       color: var(--ua-gold); 
-      border-bottom-color: var(--ua-gold); 
+      border-bottom-color: var(--ua-gold) !important; 
+      box-shadow: none !important;
     }
 
     .page-container { 
@@ -103,7 +161,7 @@
       display: block; 
     }
 
-    /* HOME PAGE STYLES */
+    /* HOME & SOCIALS PAGE STYLES */
     .content-grid { 
       display: grid; 
       grid-template-columns: 1fr; 
@@ -124,6 +182,14 @@
       margin-bottom: 20px; 
     }
 
+    /* SHIFT/ENTER SPACING FIX */
+    .post-content {
+      white-space: pre-wrap;
+      line-height: 1.6;
+      word-wrap: break-word;
+      margin: 10px 0;
+    }
+
     .post-header { 
       display: flex; 
       align-items: center; 
@@ -131,7 +197,17 @@
       margin-bottom: 12px; 
     }
 
-    .avatar { 
+    /* AVATAR IMG & FALLBACK STYLES */
+    .avatar-img { 
+      width: 42px; 
+      height: 42px; 
+      border: 2px solid var(--ua-gold); 
+      border-radius: 50%; 
+      object-fit: cover;
+      background: var(--ua-blue);
+    }
+
+    .avatar-placeholder { 
       width: 42px; 
       height: 42px; 
       background: var(--ua-blue); 
@@ -141,16 +217,52 @@
       align-items: center; 
       justify-content: center; 
       font-weight: bold; 
-      font-size: 0.8rem; 
+      font-size: 0.75rem; 
+      color: #fff;
     }
 
     .banner-img { 
       width: 100%; 
-      max-height: 250px; 
+      max-height: 300px; 
       object-fit: cover; 
       border-radius: 6px; 
       margin: 12px 0; 
       border: 1px solid var(--border-color); 
+    }
+
+    /* REACTION BUTTON STYLES */
+    .post-reactions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding-top: 10px;
+      margin-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .reaction-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      color: #fff;
+      padding: 5px 12px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .reaction-btn:hover {
+      border-color: var(--tech-cyan) !important;
+      box-shadow: 0 0 8px rgba(0, 210, 255, 0.4) !important;
+    }
+
+    .reaction-btn.active {
+      background: rgba(0, 210, 255, 0.15);
+      border-color: var(--tech-cyan) !important;
+      color: var(--tech-cyan);
     }
 
     /* Interactive Event Cards */
@@ -171,9 +283,9 @@
     }
 
     .event-card.active { 
-      border-color: var(--ua-gold); 
+      border-color: var(--ua-gold) !important; 
       background: #1a202c; 
-      box-shadow: 0 0 8px rgba(255, 204, 0, 0.2); 
+      box-shadow: 0 0 8px rgba(255, 204, 0, 0.2) !important; 
     }
 
     .event-card.locked { 
@@ -268,6 +380,7 @@
 
     .class-box { 
       background: var(--card-bg); 
+      border: 1px solid var(--border-color);
       border-top: 3px solid var(--ua-gold); 
       border-radius: 4px; 
       padding: 12px; 
@@ -367,33 +480,23 @@
       }
     }
 
-    /* Card Animations & Hover FX */
+    /* Card Base Animations */
     .post-card, .event-card, .class-box, .staff-card, .phase-box, .showcase-box {
       animation: fadeInUp 0.4s ease-out forwards;
       transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
 
-    .post-card:hover, .class-box:hover, .phase-box:hover, .showcase-box:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px -5px rgba(255, 204, 0, 0.15);
-      border-color: var(--ua-gold);
-    }
-
-    /* Status Pulse Animation */
-    .badge-active, .status-live {
-      animation: pulseGlow 2s infinite;
-    }
-
-    @keyframes pulseGlow {
-      0% {
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
-      }
-      70% {
-        box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
-      }
+    /* HOVER GLOWS & ELEVATION EFFECTS */
+    .post-card:hover, 
+    .event-card:hover:not(.locked), 
+    .class-box:hover, 
+    .staff-card:hover, 
+    .phase-box:hover, 
+    .showcase-box:hover {
+      transform: translateY(-4px);
+      border-color: var(--tech-cyan) !important;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 
+                  0 0 15px rgba(0, 210, 255, 0.35); /* Tech Blue Outer Glow */
     }
   </style>
 </head>
@@ -401,13 +504,22 @@
 
   <!-- Header -->
   <div class="header">
-    <h1>U.A High Network</h1>
-    <p>"Go Beyond! Plus Ultra!"</p>
+    <div class="header-content">
+      <h1>U.A High Network</h1>
+      <p>"Go Beyond! Plus Ultra!"</p>
+    </div>
+
+    <!-- Header Search Bar -->
+    <div class="header-search-container">
+      <input type="text" class="header-search-input" placeholder="Search archive..." />
+      <span style="font-size: 0.85rem; cursor: pointer;">🔍</span>
+    </div>
   </div>
 
   <!-- Navigation Tabs -->
   <div class="nav-tabs">
     <button class="tab-btn active" onclick="switchTab('news-page', event)">Home (News)</button>
+    <button class="tab-btn" onclick="switchTab('socials-page', event)">HeroNet Socials</button>
     <button class="tab-btn" onclick="switchTab('roster-page', event)">UA Roster</button>
     <button class="tab-btn" onclick="switchTab('leaderboard-page', event)">Leaderboards</button>
   </div>
@@ -449,7 +561,21 @@
       </div>
     </div>
 
-    <!-- PAGE 2: UA ROSTER -->
+    <!-- PAGE 2: HERONET SOCIALS (NEW) -->
+    <div id="socials-page" class="tab-content">
+      <div style="max-width: 680px; margin: 0 auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <h3 style="color: var(--ua-gold); margin: 0;"># HeroNet Live Feed</h3>
+          <span style="font-size: 0.75rem; color: var(--text-sub); border: 1px solid var(--border-color); padding: 4px 8px; border-radius: 4px;">Staff Verified Accounts</span>
+        </div>
+        
+        <div id="socials-container">
+          <p style="color: var(--text-sub); text-align: center; padding: 20px;">Loading HeroNet feed...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 3: UA ROSTER -->
     <div id="roster-page" class="tab-content">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
         <h3 style="color: var(--ua-gold); margin: 0;"># UA Roster</h3>
@@ -469,7 +595,7 @@
       <div class="class-columns" id="classColumns"></div>
     </div>
 
-    <!-- PAGE 3: LEADERBOARDS -->
+    <!-- PAGE 4: LEADERBOARDS -->
     <div id="leaderboard-page" class="tab-content">
       <h3 style="color: var(--ua-gold); margin-top: 0;"># Leaderboards</h3>
       <div class="leaderboard-grid">
@@ -514,6 +640,7 @@
     const SHEET_ID = '16x7iRNHKZah-gW2Uhh-cl267esgd_RwpmeQLhnzYZ8E';
 
     let cachedAnnouncements = [];
+    let cachedSocials = [];
     let currentPhase = 'Phase 1';
     let cachedRosterData = {};
     let cachedLeaderboardData = [];
@@ -559,7 +686,8 @@
           author: row[1] ? row[1].v : 'U.A. Staff',
           subtext: row[2] ? row[2].v : 'Official Notice',
           content: row[3] ? row[3].v : '',
-          banner: row[4] ? row[4].v : ''
+          banner: row[4] ? row[4].v : '',
+          avatar: row[5] ? row[5].v : '' // Column F: Avatar URL
         });
       }
 
@@ -577,21 +705,118 @@
 
       container.innerHTML = posts.map(post => {
         const bannerHtml = post.banner ? `<img src="${post.banner}" class="banner-img" alt="Post Banner">` : '';
+        const avatarHtml = post.avatar 
+          ? `<img src="${post.avatar}" class="avatar-img" alt="${post.author}">`
+          : `<div class="avatar-placeholder">STAFF</div>`;
+
         return `
           <div class="post-card">
             <div class="post-header">
-              <div class="avatar">STAFF</div>
+              ${avatarHtml}
               <div>
                 <strong style="color: #fff;">${post.author}</strong>
                 <span style="font-size:0.75rem; color: var(--ua-gold); margin-left:6px;">[${post.phase}]</span>
                 <div style="font-size: 0.75rem; color: var(--text-sub);">${post.subtext}</div>
               </div>
             </div>
-            <p>${post.content}</p>
+            <div class="post-content">${post.content}</div>
             ${bannerHtml}
+            <div class="post-reactions">
+              <button class="reaction-btn" onclick="toggleLike(this)">
+                👍 <span class="like-count">12</span>
+              </button>
+              <button class="reaction-btn" onclick="toggleHeart(this)">
+                ❤️ <span class="heart-count">8</span>
+              </button>
+            </div>
           </div>
         `;
       }).join('');
+    }
+
+    // --- HERO NET SOCIALS ---
+function handleSocialsResponse(jsonData) {
+  const rows = jsonData.table.rows;
+  cachedSocials = [];
+
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i].c;
+    if (!row) continue;
+
+    cachedSocials.push({
+      author: row[0] ? row[0].v : 'HeroNet User',
+      avatar: row[1] ? row[1].v : '',
+      handle: row[2] ? row[2].v : '@hero',
+      content: row[3] ? row[3].v : '',
+      image: row[4] ? row[4].v : ''
+    });
+  }
+
+  renderSocials();
+}
+
+function renderSocials() {
+  const container = document.getElementById('socials-container');
+
+  if (cachedSocials.length === 0) {
+    container.innerHTML = `<div class="post-card" style="text-align:center; color:var(--text-sub);">No social updates posted yet.</div>`;
+    return;
+  }
+
+  container.innerHTML = cachedSocials.map(post => {
+    const imageHtml = post.image ? `<img src="${post.image}" class="banner-img" alt="Social Media Upload">` : '';
+    const avatarHtml = post.avatar 
+      ? `<img src="${post.avatar}" class="avatar-img" alt="${post.author}">`
+      : `<div class="avatar-placeholder">${post.author.charAt(0).toUpperCase()}</div>`;
+
+    return `
+      <div class="post-card">
+        <div class="post-header">
+          ${avatarHtml}
+          <div>
+            <strong style="color: #fff;">${post.author}</strong> 
+            <span style="font-size:0.8rem; color: var(--text-sub); margin-left: 4px;">${post.handle}</span>
+          </div>
+        </div>
+        <div class="post-content">${post.content}</div>
+        ${imageHtml}
+        <div class="post-reactions">
+          <button class="reaction-btn" onclick="toggleLike(this)">
+            👍 <span class="like-count">0</span>
+          </button>
+          <button class="reaction-btn" onclick="toggleHeart(this)">
+            ❤️ <span class="heart-count">0</span>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+    // --- REACTION BUTTON LOGIC ---
+    function toggleLike(btn) {
+      let countSpan = btn.querySelector('.like-count');
+      let currentCount = parseInt(countSpan.innerText);
+      
+      if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        countSpan.innerText = currentCount - 1;
+      } else {
+        btn.classList.add('active');
+        countSpan.innerText = currentCount + 1;
+      }
+    }
+
+    function toggleHeart(btn) {
+      let countSpan = btn.querySelector('.heart-count');
+      let currentCount = parseInt(countSpan.innerText);
+      
+      if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        countSpan.innerText = currentCount - 1;
+      } else {
+        btn.classList.add('active');
+        countSpan.innerText = currentCount + 1;
+      }
     }
 
     // --- LEADERBOARDS ---
@@ -787,6 +1012,7 @@
 
     // Load All Sheets
     loadSheet('ANNOUNCEMENTS', 'handleAnnouncementsResponse');
+    loadSheet('SOCIALS', 'handleSocialsResponse');
     loadSheet('SCHOOL ROSTER', 'handleRosterResponse');
     loadSheet('ALL LEADERBOARD', 'handleLeaderboardResponse');
     loadSheet('BIG 3', 'handleBig3Response');
